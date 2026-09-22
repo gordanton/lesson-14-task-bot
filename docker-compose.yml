@@ -1,0 +1,16 @@
+# Один сервис: сам бот.
+# Токен читается из .env на сервере, в образ он не зашит.
+# База SQLite лежит в томе bot-data и не пропадает при пересборке контейнера.
+
+services:
+  bot:
+    build: .
+    container_name: tasklist-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - bot-data:/app/data
+
+volumes:
+  bot-data:
